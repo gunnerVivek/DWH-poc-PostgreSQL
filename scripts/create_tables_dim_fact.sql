@@ -36,7 +36,6 @@ CREATE TABLE IF NOT EXISTS sales_mart.dim_customer(
 	, email TEXT UNIQUE NOT NULL
 	, dob date NOT NULL 
 	, phone_number varchar(20) NOT NULL 
-	, address TEXT NOT NULL
 	, city varchar(50) NOT NULL 
 	, state varchar(50) NOT NULL
 	, country varchar(50) NOT NULL

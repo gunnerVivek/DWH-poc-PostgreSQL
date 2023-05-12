@@ -23,7 +23,6 @@ CREATE TABLE IF NOT EXISTS sales_mart_stage.dim_customer_stage(
 	, email TEXT 
 	, dob date
 	, phone_number varchar(20)  
-	, address TEXT 
 	, city varchar(50)  
 	, state varchar(50) 
 	, country varchar(50) 
