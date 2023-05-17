@@ -26,13 +26,12 @@ CREATE TABLE IF NOT EXISTS sales_mart_stage.dim_customer_stage(
 	, city varchar(50)  
 	, state varchar(50) 
 	, country varchar(50) 
-	, zipcode varchar(20) 
-	, created_time timestamp  -- time record was created AT SOURCE FOR the 1st time
+	, zipcode varchar(20)
 	, update_time timestamp  -- time record was modified, loaded INTO the DWH
-	, effective_date timestamp  -- only target
-	, end_date timestamp  -- only target
+	, effective_start_date timestamp  -- only target created_time timestamp  -- time record was created AT SOURCE FOR the 1st time
+	, effective_end_date timestamp  -- only target
 	, is_active int  --CHECK(is_active IN (0,1)) Only in Target
-	, hash_key TEXT 
+	, hash_key uuid
 )
 ;
 

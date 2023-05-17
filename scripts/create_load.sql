@@ -3,6 +3,17 @@
 --   Wont have Primary Keys because all these checks are built into QA
 --	 AND also we want faster load
 -- #####################################################################
+DROP FUNCTION md5_immutable(text);
+CREATE OR REPLACE FUNCTION md5_immutable(text) RETURNS uuid IMMUTABLE 
+LANGUAGE SQL
+AS 
+$Body$
+	SELECT md5($1)::uuid; 
+$Body$
+;
+
+
+
 
 CREATE SCHEMA IF NOT EXISTS load_schema; 
 
@@ -32,11 +43,22 @@ CREATE TABLE  load_schema.customer_load (
 )  
 ;
 
+-- Add a hash key for the customer dimensions SCD columns  
 ALTER TABLE load_schema.customer_load 
-ADD COLUMN has_key GENERATED ALWAYS AS (md5(product_id::varchar(20) || product_sku)::uuid)  STORED
+ADD COLUMN hash_key_dim_customer uuid ; 
+--GENERATED ALWAYS AS (
+--		sha256(
+--			customer_id|| account_status|| customer_type|| "name" || gender
+--			|| email|| dob || phone_number
+--			|| split_part(address, '|', 2) -- city
+--			|| split_part(address, '|', 3) -- state
+--			|| split_part(address, '|', 4) -- country
+--			|| split_part(address, '|', 5) -- zipcode
+--			)
+--		::uuid)  STORED
 ;
 
- 
+
 
 DROP TABLE IF EXISTS load_schema.product_load ;
 -- No hash key because SCD 3

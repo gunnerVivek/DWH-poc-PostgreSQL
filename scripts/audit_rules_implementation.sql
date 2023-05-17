@@ -22,7 +22,10 @@
 	--	, description text
  
 -- ########### 
+
+
 DROP PROCEDURE IF EXISTS sp_audit_load_checks;
+
 CREATE OR REPLACE PROCEDURE sp_audit_load_checks(
 	IN rule_table TEXT --varchar(50) -- audit rules
 	, IN load_table TEXT --varchar(50) -- LOAD table
@@ -379,11 +382,10 @@ BEGIN
 		ON ar.audit_rule_id = '||quote_literal(audit_rule_id)
 	;
 
---	RAISE NOTICE 'Insert to Audit Log: %',
+	--RAISE NOTICE 'Insert to Audit Log: %',
 	EXECUTE
 	insert_to_audit_log_sql ;
 
-	--- Problem in above part -----
 
 	-- Write to Audit table
 	-- Get data from Load Table that have multiple PK for Unique key

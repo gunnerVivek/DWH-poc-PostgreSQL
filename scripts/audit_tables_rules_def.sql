@@ -92,43 +92,6 @@ CREATE TABLE load_schema.audit_logs(
 COMMIT ;
 
 
--- ##############################################
---          Load data into load Tables
--- If there are permission issues to reda data fromm file;
--- use \copy command from pslq shell		
--- ##############################################
-
-COPY FROM load_schema.customer_load(
-	customer_id, account_status, customer_type, "name", gender, email, dob  
-	, phone_number, address--, city, state, country, zipcode
-	, customer_class, customer_band, credit_score, income_level
-	, customer_occupation_category, created_time
-) 
-FROM 
-'/home/vivek/User_Data/repositories/dwh-poc-postgresql/data/customer_load.csv'
-DELIMITER ',' CSV HEADER
-;
-
-
-COPY load_schema.product_load(
-	product_id, sku, "name", product_description, package_type, product_category
-	, product_size, product_unit_size_desc, package_weight, package_weight_unit
-	, package_color_code, brand_name, price, last_price, status, created_time
-)
-FROM '/home/vivek/User_Data/scd_implementation_poc/data/product_load.csv'
-DELIMITER ',' CSV HEADER
-;
-
-
-COPY load_schema.sales_load(
-
-	sales_date_key, customer_id, product_id, product_sku, order_id, unit_price 
-	, unit_cost, quantity, sales_timestamp, created_time
-)
-FROM '/home/vivek/User_Data/scd_implementation_poc/data/sales_load.csv'
-DELIMITER ',' CSV HEADER
-;
-
 
 -- ##############################################
 -- 		Audit Rules for Customers Load Table
